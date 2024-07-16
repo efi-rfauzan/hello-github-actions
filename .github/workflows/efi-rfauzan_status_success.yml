@@ -11,14 +11,13 @@ jobs:
         uses: actions/github-script@v6
         with:
           script: |
-            const { context, github } = require('@actions/github');
-            const sha = context.payload.pull_request.head.sha;
-            await github.repos.createCommitStatus({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+            const sha = github.context.payload.pull_request.head.sha;
+            await github.rest.repos.createCommitStatus({
+              owner: github.context.repo.owner,
+              repo: github.context.repo.repo,
               sha: sha,
               state: 'success',
-              context: 'efi-rfauzan',
+              context: 'efi-rfauzan Any Source',
               description: 'Status check passed',
               target_url: 'http://example.com'
             });
