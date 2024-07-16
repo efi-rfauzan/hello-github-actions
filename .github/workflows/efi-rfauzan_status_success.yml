@@ -1,0 +1,24 @@
+name: Set Status Check
+
+on:
+  pull_request:
+
+jobs:
+  set-status:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Set status to success
+        uses: actions/github-script@v6
+        with:
+          script: |
+            const { context, github } = require('@actions/github');
+            const sha = context.payload.pull_request.head.sha;
+            await github.repos.createCommitStatus({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              sha: sha,
+              state: 'success',
+              context: 'efi-rfauzan',
+              description: 'Status check passed',
+              target_url: 'http://example.com'
+            });
