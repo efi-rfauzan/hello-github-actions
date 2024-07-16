@@ -6,6 +6,7 @@ on:
 jobs:
   set-status:
     runs-on: ubuntu-latest
+    environment: test-check
     steps:
       - name: Set status to success
         uses: actions/github-script@v6
