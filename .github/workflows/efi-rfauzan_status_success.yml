@@ -6,14 +6,14 @@ on:
 jobs:
   set-status:
     runs-on: ubuntu-latest
+    environment: test-check
     steps:
       - name: Set status to success
         uses: actions/github-script@v6
         with:
           script: |
-            const { context, github } = require('@actions/github');
             const sha = context.payload.pull_request.head.sha;
-            await github.repos.createCommitStatus({
+            await github.rest.repos.createCommitStatus({
               owner: context.repo.owner,
               repo: context.repo.repo,
               sha: sha,
